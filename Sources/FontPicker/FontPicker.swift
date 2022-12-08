@@ -43,18 +43,6 @@ public struct FontPicker: View {
         
         HalfASheet(isPresented: $isPresented) {
             
-            VStack {
-                
-                Text(NSLocalizedString("Font", bundle: Bundle.module, comment: "Font"))
-                    .font(Font.headline.weight(.semibold))
-                    .padding(EdgeInsets(top: 10, leading: 0, bottom: 10, trailing: 0))
-                    .lineLimit(1)
-                
-                ZStack {
-                    
-                    RoundedRectangle(cornerRadius: 10)
-                        .foregroundColor(Color(backgroundColor.withAlphaComponent(0.4).equivalentColorWithNoTransparency))
-                    
                     List {
                         ForEach(fontNamesToDisplay(), id: \.self) { fontName in
                             
@@ -73,8 +61,7 @@ public struct FontPicker: View {
                         }
                         .listRowBackground(Color.clear)
                     }
-                }
-            }
+            
             .onAppear {
                 NotificationCenter.default.post(name: .fontPickerAppeared, object: self)
             }
