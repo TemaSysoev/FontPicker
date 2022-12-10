@@ -63,7 +63,7 @@ public struct FontPicker: View {
                             }
                         }
                     }
-        .listStyle(.sidebar())
+        .listStyle(.sidebar)
         
             
             .onAppear {
