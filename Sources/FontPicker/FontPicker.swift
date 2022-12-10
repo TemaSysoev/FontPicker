@@ -41,8 +41,7 @@ public struct FontPicker: View {
     
     public var body: some View {
         
-        HalfASheet(isPresented: $isPresented) {
-            
+                
                     List {
                         ForEach(fontNamesToDisplay(), id: \.self) { fontName in
                             
@@ -68,12 +67,7 @@ public struct FontPicker: View {
             .onDisappear {
                 NotificationCenter.default.post(name: .fontPickerDisappeared, object: self)
             }
-        }
-        .height(height ?? .proportional(0.84))
-        .contentInsets(EdgeInsets(top: 8, leading: 16, bottom: 16, trailing: 16))
-        .backgroundColor(backgroundColor)
-        .closeButtonColor(UIColor.black.withAlphaComponent(0.3))
-    }
+            }
     
     private func fontNamesToDisplay() -> [String] {
         
