@@ -49,6 +49,10 @@ public struct FontPicker: View {
                                 Text(fontName)
                                     .customFont(name: fontName)
                                 Spacer()
+                                
+                                if selection == fontName{
+                                    Image(systemName: "checkmark")
+                                }
                             }
                             .contentShape(Rectangle())
                             .onTapGesture {
