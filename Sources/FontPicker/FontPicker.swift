@@ -62,8 +62,9 @@ public struct FontPicker: View {
                                 }
                             }
                         }
-                        .listRowBackground(Color.clear)
                     }
+        .listStyle(.sidebar())
+        
             
             .onAppear {
                 NotificationCenter.default.post(name: .fontPickerAppeared, object: self)
