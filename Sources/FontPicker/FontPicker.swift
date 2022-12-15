@@ -63,6 +63,7 @@ public struct FontPicker: View {
                             }
                         }
                     }
+        .listStyle(.inset)
                 
             
             .onAppear {
