@@ -54,6 +54,7 @@ public struct FontPicker: View {
                                     Image(systemName: "checkmark")
                                 }
                             }
+                            .listRowBackground(Color.clear)
                             .contentShape(Rectangle())
                             .onTapGesture {
                                 selection = fontName
@@ -63,7 +64,7 @@ public struct FontPicker: View {
                             }
                         }
                     }
-        .listStyle(.inset)
+        .listStyle(.plain)
                 
             
             .onAppear {
