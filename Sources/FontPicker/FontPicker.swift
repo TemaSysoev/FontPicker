@@ -13,6 +13,7 @@ public struct FontPicker: View {
     
     @Binding private var isPresented: Bool
     @Binding private var selection: String
+    @Binding private var search: String
     
     internal var userFontNames: [String]?
     internal var additionalFontNames: [String] = []
@@ -40,40 +41,41 @@ public struct FontPicker: View {
     }
     
     public var body: some View {
-        
+          
+        List {
+            ForEach(fontNamesToDisplay(), id: \.self) { fontName in
                 
-                    List {
-                        ForEach(fontNamesToDisplay(), id: \.self) { fontName in
-                            
-                            HStack {
-                                Text(fontName)
-                                    .customFont(name: fontName)
-                                Spacer()
-                                
-                                if selection == fontName{
-                                    Image(systemName: "checkmark")
-                                }
-                            }
-                            .listRowBackground(Color.clear)
-                            .contentShape(Rectangle())
-                            .onTapGesture {
-                                selection = fontName
-                                if _dismissOnSelection {
-                                    isPresented = false
-                                }
-                            }
-                        }
+                HStack {
+                    Text(fontName)
+                    .customFont(name: fontName)
+                    Spacer()
+                    
+                    if selection == fontName{
+                        Image(systemName: "checkmark")
                     }
+                }
+                .listRowBackground(Color.clear)
+                .contentShape(Rectangle())
+                .onTapGesture {
+                    selection = fontName
+                    if _dismissOnSelection {
+                        isPresented = false
+                    }
+                }
+            }
+        }
+
+        .searchable(text: $search)      
         .listStyle(.plain)
-                
-            
-            .onAppear {
-                NotificationCenter.default.post(name: .fontPickerAppeared, object: self)
-            }
-            .onDisappear {
-                NotificationCenter.default.post(name: .fontPickerDisappeared, object: self)
-            }
-            }
+        
+        
+        .onAppear {
+            NotificationCenter.default.post(name: .fontPickerAppeared, object: self)
+        }
+        .onDisappear {
+            NotificationCenter.default.post(name: .fontPickerDisappeared, object: self)
+        }
+    }
     
     private func fontNamesToDisplay() -> [String] {
         
@@ -82,7 +84,11 @@ public struct FontPicker: View {
         }
         
         let fontNames = UIFont.familyNames.sorted().filter { !excludedFontNames.contains(where: $0.contains) }
+        if search == "" {
+            return (fontNames + additionalFontNames).sorted()
+        } else {
+            return (fontNames + additionalFontNames).sorted().filter { $0.contains(search) }
+        }
         
-        return (fontNames + additionalFontNames).sorted()
     }
 }
